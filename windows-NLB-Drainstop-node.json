@@ -1,0 +1,48 @@
+{
+  "Id": "53181dfc-b014-4e99-82fb-7087d21a5380",
+  "Name": "NLB Drainstop node",
+  "Description": "Will Drainstop the Microsoft Network Load Balancer node its executed on",
+  "ActionType": "Octopus.Script",
+  "Version": 2,
+  "CommunityActionTemplateId": null,
+  "Properties": {
+    "Octopus.Action.Script.Syntax": "PowerShell",
+    "Octopus.Action.Script.ScriptSource": "Inline",
+    "Octopus.Action.RunOnServer": "false",
+    "Octopus.Action.Script.ScriptBody": "$nlbNodeStatus = Get-NlbClusterNode #{ClusterNodeName}\nif ($nlbNodeStatus.State.NodeStatusCode -ne \"Stopped\"){\n   Stop-NlbClusterNode #{ClusterNodeName} -Drain -Timeout #{timeout} \n} else {\n    write-host \"already stopped on #{ClusterNodeName}\"\n}",
+    "Octopus.Action.Script.ScriptFileName": null,
+    "Octopus.Action.Package.FeedId": null,
+    "Octopus.Action.Package.PackageId": null
+  },
+  "Parameters": [
+    {
+      "Id": "4c578666-3d45-4108-9fcc-8908dfbfff87",
+      "Name": "timeout",
+      "Label": "How long to wait for active connections to finish",
+      "HelpText": "The time is in minutes",
+      "DefaultValue": "10",
+      "DisplaySettings": {
+        "Octopus.ControlType": "SingleLineText"
+      },
+      "Links": {}
+    },
+    {
+      "Id": "b99aca43-ea46-4958-a54d-1a288b8cd7e7",
+      "Name": "ClusterNodeName",
+      "Label": "Name of the Node to drainstop",
+      "HelpText": null,
+      "DefaultValue": "#{Octopus.Machine.Name}",
+      "DisplaySettings": {
+        "Octopus.ControlType": "SingleLineText"
+      },
+      "Links": {}
+    }
+  ],
+  "LastModifiedBy": "birgerg",
+  "$Meta": {
+    "ExportedAt": "2017-12-05T16:52:20.355Z",
+    "OctopusVersion": "3.7.10",
+    "Type": "ActionTemplate"
+  },
+  "Category": "windows"
+}
