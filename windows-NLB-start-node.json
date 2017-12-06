@@ -1,0 +1,37 @@
+{
+  "Id": "195dfd10-b410-40e9-b542-5e19598eba37",
+  "Name": "NLB Start node",
+  "Description": "Will Start the Microsoft Network Load Balancer node its executed on",
+  "ActionType": "Octopus.Script",
+  "Version": 1,
+  "CommunityActionTemplateId": null,
+  "Properties": {
+    "Octopus.Action.Script.Syntax": "PowerShell",
+    "Octopus.Action.Script.ScriptSource": "Inline",
+    "Octopus.Action.RunOnServer": "false",
+    "Octopus.Action.Script.ScriptBody": "Start-NlbClusterNode #{ClusterNodeName}",
+    "Octopus.Action.Script.ScriptFileName": null,
+    "Octopus.Action.Package.FeedId": null,
+    "Octopus.Action.Package.PackageId": null
+  },
+  "Parameters": [
+    {
+      "Id": "dc9ff2b8-9d7c-435d-907c-badd55df8ac5",
+      "Name": "ClusterNodeName",
+      "Label": "Name of the Node to start",
+      "HelpText": null,
+      "DefaultValue": "#{Octopus.Machine.Name}",
+      "DisplaySettings": {
+        "Octopus.ControlType": "SingleLineText"
+      },
+      "Links": {}
+    }
+  ],
+  "LastModifiedBy": "birgerg",
+  "$Meta": {
+    "ExportedAt": "2017-12-05T16:52:20.355Z",
+    "OctopusVersion": "3.7.10",
+    "Type": "ActionTemplate"
+  },
+  "Category": "windows"
+}
